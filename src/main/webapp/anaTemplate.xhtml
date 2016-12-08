@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputScript library="js" name="takvimTurkce.js"/>
+        <title>
+
+            <ui:insert name="sayfaBasligi">
+
+                Rehber Uygulaması
+
+            </ui:insert>
+
+        </title>
+    </h:head>
+
+    <h:body>
+
+
+
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" size="110" resizable="true" closable="true" collapsible="true">
+                <ui:insert name="top">
+                    <h:form>
+                        <table style="width: 100%">
+                            <tr>
+
+                                <td style="width: 30%">
+                                    <p:graphicImage library="resimler" 
+                                                    name="ptt2.png"
+                                                    width="80px"
+                                                    />
+                                </td>
+                                <td style="width: 40%" align="center">
+                                    <h2>Rehber Uygulaması</h2>
+                                </td>
+
+                                <td style="width: 30%" align="right">
+                                    Hoşgeldin #{session.getAttribute("kullanici").toString()}
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    Tarih Saat: <p:clock pattern="dd/MM/yyyy HH:mm:ss"/> 
+
+                                </td>       
+
+                            </tr>
+                        </table>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="13%" closable="true" collapsible="true">
+                <ui:insert name="bottom">
+                    <center>
+                        <h6>Copyright@2016</h6>
+                    </center>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="300" collapsible="true">
+                <ui:insert name="left">
+                    <h:form>
+                        
+                        <p:panelMenu model="#{menuBean.model}"/>
+                        
+                        <ui:remove>
+                        <p:panelMenu style="width: 280px">
+
+                            <p:submenu label="Kişi İşlemleri">
+
+                                <p:menuitem value="Ekle" 
+                                            url="kisiEkle.xhtml?faces-redirect=true"
+                                            icon="ui-icon-plus"/>
+
+                                <p:menuitem value="Listele" 
+                                            url="kisiListele.xhtml?faces-redirect=true"
+                                            icon="ui-icon-script"/>
+
+                            </p:submenu>
+
+                            <p:submenu label="Giriş/Çıkış İşlemleri">
+
+                                <p:menuitem value="Giriş" 
+                                            url="giris.xhtml?faces-redirect=true"
+                                            icon="ui-icon-check"/>
+
+                                <p:menuitem value="Güvenli Çıkış" 
+                                            action="#{girisBean.guvenliCikis()}"
+                                            icon="ui-icon-close"/>
+
+                            </p:submenu>
+
+                        </p:panelMenu>
+                        
+                        </ui:remove>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="content">Content</ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+
+
+    </h:body>
+
+</html>

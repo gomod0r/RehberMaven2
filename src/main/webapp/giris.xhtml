@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msg['rehbermaven.giris.title']}</title>
+    </h:head>
+    <h:body>
+        <h:form id="girisForm">
+
+            <p:growl showSummary="true" showDetail="true"/>
+
+            <p:panelGrid columns="3">
+
+                <f:facet name="header">
+
+                    <h:outputText value="#{msg['rehbermaven.giris.panelBaslik']}"/>
+
+                </f:facet>
+
+                <p:outputLabel value="#{msg['rehbermaven.giris.kullanici']}" for="kullanici"/>
+                <p:inputText id="kullanici"
+                             label="#{msg['rehbermaven.giris.kullanici']}"
+                             value="#{girisBean.giris.kullanici}"
+                             required="true">
+
+                    <p:ajax event="keyup" update="kullanicimsg"/>
+                    <f:validateLength minimum="3" maximum="12"/>
+
+                </p:inputText>
+
+                <p:message id="kullanicimsg" for="kullanici"/>
+
+                <p:outputLabel value="#{msg['rehbermaven.giris.sifre']}" for="sifre"/>
+                <p:password id="sifre"
+                            label="#{msg['rehbermaven.giris.sifre']}"
+                            value="#{girisBean.giris.sifre}"
+                            required="true"
+                            redisplay="true">
+
+                    <p:ajax event="keyup" update="sifremsg"/>
+
+                </p:password>
+
+                <p:message id="sifremsg" for="sifre"/>
+
+                <p:outputLabel value=""/>
+
+                <p:commandButton value="#{msg['rehbermaven.giris.button']}"
+                                 action="#{girisBean.giriseYetkilimi()}"
+                                 update="girisForm"
+                                 ajax="false"/>
+
+                <p:outputLabel value=""/>
+
+            </p:panelGrid>
+
+            <h:commandLink action="#{dilBean.changeLanguage('')}" immediate="true">
+
+                <h:graphicImage library="resimler" name="English.png"/>
+
+            </h:commandLink>
+
+            <h:commandLink action="#{dilBean.changeLanguage('tr')}" immediate="true">
+
+                <h:graphicImage library="resimler" name="Turkey.png"/>
+
+            </h:commandLink>
+
+        </h:form>
+    </h:body>
+</html>
+

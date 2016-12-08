@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./anaTemplate.xhtml">
+
+            <ui:define name="sayfaBasligi">
+
+                Kişi Listesi
+
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form id="listeleForm">
+
+                    <p:growl id="mesajlar" showDetail="true"/>                    
+
+                    <p:dataTable id="listeTablo"
+                                 value="#{kisiBean.kisiListe}"
+                                 var="kisi"
+                                 paginator="true"
+                                 rowsPerPageTemplate="5,10,15"
+                                 rows="10"
+                                 editable="true">
+
+                        <p:ajax event="rowEdit" 
+                                listener="#{kisiBean.onRowEdit}" 
+                                update=":listeleForm:mesajlar"/>
+
+                        <p:ajax event="rowEditCancel" 
+                                listener="#{kisiBean.onRowCancel}" 
+                                update=":listeleForm:mesajlar"/>
+
+                        <p:column headerText="No">
+
+                            <h:outputText value="#{kisi.no}"/>
+
+                        </p:column>
+
+                        <p:column headerText="Ad">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{kisi.ad}"/>
+                                </f:facet>
+                                
+                                <f:facet name="input">
+                                    <p:inputText value="#{kisi.ad}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Soyad">
+
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{kisi.soyad}"/>
+                                </f:facet>
+                                
+                                <f:facet name="input">
+                                    <p:inputText value="#{kisi.soyad}"/>
+                                </f:facet>
+                            </p:cellEditor>
+
+                        </p:column>
+
+                        <p:column headerText="Maaş">
+
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{kisi.maas}"/>
+                                </f:facet>
+                                
+                                <f:facet name="input">
+                                    <p:inputText value="#{kisi.maas}"/>
+                                </f:facet>
+                            </p:cellEditor>
+
+                        </p:column>
+
+                        <p:column headerText="Doğum Tarihi">
+
+                            <h:outputText value="#{kisi.dogtar}">
+
+                                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="EET"/>
+
+                            </h:outputText>
+
+                        </p:column>
+
+                        <p:column style="width: 32px">
+
+                            <p:rowEditor/>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:commandButton value="PDF" ajax="false">
+                        <p:dataExporter target="listeTablo" 
+                                        type="pdf"
+                                        fileName="kisiler"
+                                        encoding="Cp1254"
+                                        pageOnly="true"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="Excel" ajax="false">
+                        <p:dataExporter target="listeTablo" 
+                                        type="xls"
+                                        fileName="kisiler"/>
+                    </p:commandButton>
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
